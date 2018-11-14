@@ -2,7 +2,7 @@
 
 <h5>About</h5>
 <p>This program calculates the hash encryption of a file and verifies the integrity compared to the official hash contained in another file.</p>
-<p>Inside the <b>build</b> folder is the executable (*.jar), with which you can execute the program without the need to compile the source code.</p>
+<p>Inside the <b>build</b> folder is the executable (HashChecker.jar), with which you can execute the program without the need to compile the source code.</p>
 
 <p>To run, open a terminal and type:<p>
 <pre>$ java -jar HashChecker.jar</pre>

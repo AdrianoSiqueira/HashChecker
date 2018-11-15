@@ -5,25 +5,25 @@ import core.FileOpener;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.geometry.*;
+import javafx.geometry.HPos;
+import javafx.geometry.Orientation;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import language.Language;
 import language.LanguageManager;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class AppUI extends Application {
     private final AppController controller;
 
     private Stage stage;
+    private Scene scene;
 
     private MenuBar menuBar;
     private Menu menuSettings;
@@ -64,19 +64,16 @@ public class AppUI extends Application {
         configureMenuBar();
         configurePaneRoot();
         configureSpinnerSettingsLanguage();
-        configureFont();
+        configureCSS();
 
         fieldFileToCheck.setEditable(false);
-        fieldFileToCheck.setMinWidth(300);
         fieldFileToCheck.setOnAction(event -> buttonOpenFileToCheck.fire());
         fieldFileToCheck.setOnMouseClicked(event -> buttonOpenFileToCheck.fire());
 
         fieldHashFile.setEditable(false);
-        fieldHashFile.setMinWidth(300);
         fieldHashFile.setOnAction(event -> buttonOpenHashFile.fire());
         fieldHashFile.setOnMouseClicked(event -> buttonOpenHashFile.fire());
 
-        buttonOpenFileToCheck.setMinWidth(100);
         buttonOpenFileToCheck.setOnAction(event -> {
             final File file = new FileOpener().openFile();
             controller.setFileToCheck(file);
@@ -84,7 +81,6 @@ public class AppUI extends Application {
             run();
         });
 
-        buttonOpenHashFile.setMinWidth(100);
         buttonOpenHashFile.setOnAction(event -> {
             final File file = new FileOpener().openHash();
             controller.setHashFile(file);
@@ -123,13 +119,13 @@ public class AppUI extends Application {
     }
 
     private void configureStage() {
-        stage.setMinWidth(530);
+        stage.setMinWidth(531);
 
         /* Lock vertical resize */
-        stage.setMinHeight(239);
-        stage.setMaxHeight(239);
+        stage.setMinHeight(240);
+        stage.setMaxHeight(240);
 
-        stage.setScene(new Scene(paneRoot));
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -150,13 +146,9 @@ public class AppUI extends Application {
     private void configurePaneRoot() {
         paneRoot.setTop(menuBar);
         paneRoot.setCenter(scrollBackground);
-
-        BorderPane.setAlignment(scrollBackground, Pos.CENTER);
     }
 
     private void configureScrollBackground() {
-        scrollBackground.setFitToWidth(true);
-        scrollBackground.setFitToHeight(true);
         scrollBackground.setContent(paneBackground);
     }
 
@@ -173,10 +165,7 @@ public class AppUI extends Application {
         GridPane.setConstraints(fieldHashFile, 1, 3, 1, 1, HPos.LEFT, VPos.CENTER, Priority.ALWAYS, Priority.NEVER);
         GridPane.setConstraints(buttonOpenHashFile, 2, 3, 1, 1, HPos.RIGHT, VPos.CENTER);
 
-        paneBackground.setAlignment(Pos.CENTER);
-        paneBackground.setPadding(new Insets(20));
-        paneBackground.setHgap(15);
-        paneBackground.setVgap(15);
+        paneBackground.getStyleClass().add("pane-background");
         paneBackground.getChildren().addAll(labelTitle,
                 labelFileToCheck, fieldFileToCheck, buttonOpenFileToCheck,
                 separator,
@@ -192,23 +181,13 @@ public class AppUI extends Application {
         });
     }
 
-    private void configureFont() {
-        try {
-            final Font fontTitle = Font.loadFont(new FileInputStream(new File("src/font/RobotoSlab-Regular.ttf")), 20);
-            final Font font = Font.loadFont(new FileInputStream(new File("src/font/Roboto-Regular.ttf")), 16);
+    private void configureCSS() {
+        scene = new Scene(paneRoot);
 
-            labelTitle.setFont(fontTitle);
-            labelFileToCheck.setFont(font);
-            labelHashFile.setFont(font);
+        scene.getRoot().getStylesheets().clear();
+        scene.getRoot().getStylesheets().add("/gui/css/AppUI.css");
 
-            fieldFileToCheck.setFont(font);
-            fieldHashFile.setFont(font);
-
-            buttonOpenFileToCheck.setFont(font);
-            buttonOpenHashFile.setFont(font);
-        } catch (FileNotFoundException e) {
-            System.err.println(e.toString());
-        }
+        labelTitle.getStyleClass().add("label-title");
     }
 
     private void run() {
@@ -235,8 +214,8 @@ public class AppUI extends Application {
         itemManual.setText(LanguageManager.get().getString("Manual"));
 
         labelTitle.setText(LanguageManager.get().getString("Hash.Checker"));
-        labelFileToCheck.setText(LanguageManager.get().getString("File"));
-        labelHashFile.setText(LanguageManager.get().getString("Hash"));
+        labelFileToCheck.setText(LanguageManager.get().getString("File") + ":");
+        labelHashFile.setText(LanguageManager.get().getString("Hash") + ":");
 
         buttonOpenFileToCheck.setText(LanguageManager.get().getString("Open"));
         buttonOpenHashFile.setText(LanguageManager.get().getString("Open"));

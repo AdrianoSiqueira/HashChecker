@@ -36,7 +36,7 @@ public class ChecksumCalculator {
                      * But if the calculated hash starts with '0', this '0' will
                      * be ignored at conversion time.
                      *
-                     * The following loop fix this limitation.
+                     * The following loop fix it.
                      */
 
                     final StringBuilder hash = new StringBuilder();

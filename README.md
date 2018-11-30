@@ -43,8 +43,8 @@
 <h5>Change log v3.0:</h5>
 <ul>
     <li>New GUI.</li>
-    <li>Added multiplatform support.</li>
-    <li>Added multithread support for better performance.</li>
+    <li>Added multi platform support.</li>
+    <li>Added multi thread support for better performance.</li>
     <li>Added support to other languages.</li>
     <li>Now it checks all the official hashes to better determine integrity.</li>
     <li>The results are now shown in a table.</li>

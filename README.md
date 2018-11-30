@@ -1,11 +1,13 @@
+```html
 <h1>Hash Checker</h1>
 
 <h5>About</h5>
 <p>This program calculates the hash encryption of a file and verifies the integrity compared to the official hash contained in another file.</p>
 <p>Inside the <b>build</b> folder is the executable (HashChecker.jar), with which you can execute the program without the need to compile the source code.</p>
 
-<p>To run, open a terminal and type:<p>
-<pre>$ java -jar HashChecker.jar</pre>
+<h5>How to Run</h5>
+<p><b>Windows:</b> Double click in HashChecker.jar file.</p>
+<p><b>Linux and Mac:</b> Double click in HashChecker.jar file. Or open a terminal window and type 'java -jar HashChecker.jar'</p>
 
 <h5>Requirements</h5>
 <ul>
@@ -30,6 +32,13 @@
 <ol>
     <li>If the official file is not a valid text file, the program will be behave unpredictably.</li>
 </ol>
+
+<h5>Change log v3.1:</h5>
+<ul>
+    <li>Added custom fonts.</li>
+    <li>Added manual window.</li>
+    <li>Styling is now via CSS.</li>
+</ul>
 
 <h5>Change log v3.0:</h5>
 <ul>
@@ -59,3 +68,4 @@
     <li>Some improvements in performance.</li>
     <li>Translation of all project to english.</li>
 </ul>
+```

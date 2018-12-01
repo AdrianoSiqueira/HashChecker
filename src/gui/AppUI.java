@@ -58,13 +58,13 @@ public class AppUI extends Application {
     public void start(Stage stage) {
         this.stage = stage;
         initComponents();
-        updateLanguage();
-        configurePaneBackground();
-        configureScrollBackground();
-        configureMenuBar();
         configurePaneRoot();
+        configureScrollBackground();
+        configurePaneBackground();
         configureSpinnerSettingsLanguage();
-        configureCSS();
+        configureMenuBar();
+        configureScene();
+        updateLanguage();
 
         fieldFileToCheck.setEditable(false);
         fieldFileToCheck.setOnAction(event -> buttonOpenFileToCheck.fire());
@@ -87,6 +87,8 @@ public class AppUI extends Application {
             fieldHashFile.setText(file != null ? file.toString() : "");
             run();
         });
+
+        itemManual.setOnAction(event -> new ManualUI().start(new Stage()));
 
         configureStage();
     }
@@ -137,7 +139,6 @@ public class AppUI extends Application {
 
         menuSettings.getItems().add(menuSettingsLanguage);
 
-        menuHelp.setVisible(false);
         menuHelp.getItems().add(itemManual);
 
         menuBar.getMenus().addAll(menuSettings, menuHelp);
@@ -181,7 +182,7 @@ public class AppUI extends Application {
         });
     }
 
-    private void configureCSS() {
+    private void configureScene() {
         scene = new Scene(paneRoot);
 
         scene.getRoot().getStylesheets().clear();
@@ -206,18 +207,18 @@ public class AppUI extends Application {
     }
 
     private void updateLanguage() {
-        stage.setTitle(LanguageManager.get().getString("Hash.Checker") + " v3.0");
+        stage.setTitle(LanguageManager.get("Hash.Checker") + " v3.0");
 
-        menuSettings.setText(LanguageManager.get().getString("Settings"));
-        menuSettingsLanguage.setText(LanguageManager.get().getString("Language"));
-        menuHelp.setText(LanguageManager.get().getString("Help"));
-        itemManual.setText(LanguageManager.get().getString("Manual"));
+        menuSettings.setText(LanguageManager.get("Settings"));
+        menuSettingsLanguage.setText(LanguageManager.get("Language"));
+        menuHelp.setText(LanguageManager.get("Help"));
+        itemManual.setText(LanguageManager.get("Manual"));
 
-        labelTitle.setText(LanguageManager.get().getString("Hash.Checker"));
-        labelFileToCheck.setText(LanguageManager.get().getString("File") + ":");
-        labelHashFile.setText(LanguageManager.get().getString("Hash") + ":");
+        labelTitle.setText(LanguageManager.get("Hash.Checker"));
+        labelFileToCheck.setText(LanguageManager.get("File") + ":");
+        labelHashFile.setText(LanguageManager.get("Hash") + ":");
 
-        buttonOpenFileToCheck.setText(LanguageManager.get().getString("Open"));
-        buttonOpenHashFile.setText(LanguageManager.get().getString("Open"));
+        buttonOpenFileToCheck.setText(LanguageManager.get("Open"));
+        buttonOpenHashFile.setText(LanguageManager.get("Open"));
     }
 }

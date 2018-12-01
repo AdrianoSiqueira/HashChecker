@@ -1,4 +1,4 @@
-```html
+` ``html
 <h1>Hash Checker</h1>
 
 <h5>About</h5>
@@ -6,8 +6,8 @@
 <p>Inside the <b>build</b> folder is the executable (HashChecker.jar), with which you can execute the program without the need to compile the source code.</p>
 
 <h5>How to Run</h5>
-<p><b>Windows:</b> Double click in HashChecker.jar file.</p>
-<p><b>Linux and Mac:</b> Double click in HashChecker.jar file. Or open a terminal window and type 'java -jar HashChecker.jar'</p>
+<p><i>Windows:</i> Double click in HashChecker.jar file.</p>
+<p><i>Linux and Mac:</i> Double click in HashChecker.jar file. If its not work, open a terminal window and type 'java -jar HashChecker.jar'</p>
 
 <h5>Requirements</h5>
 <ul>
@@ -36,7 +36,8 @@
 <h5>Change log v3.1:</h5>
 <ul>
     <li>Added custom fonts.</li>
-    <li>Added manual window.</li>
+    <li>Added about and manual.</li>
+    <li>Added hints in components.</li>
     <li>Styling is now via CSS.</li>
 </ul>
 

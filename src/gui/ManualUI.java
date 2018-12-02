@@ -15,16 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManualUI extends Application {
-    private ScrollPane scrollRoot;
-    private GridPane paneBackground;
+    private final ScrollPane scrollRoot;
+    private final GridPane paneBackground;
 
-    private VBox paneMenuIndex;
-    private List<Label> labelsMenu;
+    private final VBox paneMenuIndex;
+    private final List<Label> labelsMenu;
 
-    private Separator separator;
+    private final Separator separator;
 
-    private Accordion accordion;
-    private List<TitledPane> panesManual;
+    private final Accordion accordion;
+    private final List<TitledPane> panesManual;
 
     {
         labelsMenu = configureLabelsMenu();
@@ -37,11 +37,12 @@ public class ManualUI extends Application {
 
         paneBackground = configurePaneBackground();
         scrollRoot = configureScrollRoot();
+
+        start(configureStage());
     }
 
     @Override
     public void start(Stage stage) {
-        configureStage(stage);
     }
 
     private Accordion configureAccordion() {
@@ -90,7 +91,7 @@ public class ManualUI extends Application {
         list.add(createPaneInformation());
         list.add(createPaneHowToUse());
         list.add(createPaneOperation());
-        list.add(createPaneSupportedEncryptations());
+        list.add(createPaneSupportedEncryptions());
         list.add(createPaneLanguage());
         return list;
     }
@@ -115,10 +116,12 @@ public class ManualUI extends Application {
         return pane;
     }
 
-    private void configureStage(final Stage stage) {
+    private Stage configureStage() {
+        final Stage stage = new Stage();
         stage.setTitle(LanguageManager.get("Hash.Checker.Manual"));
         stage.setScene(configureScene());
         stage.show();
+        return stage;
     }
 
     private TitledPane createPaneHowToUse() {
@@ -209,12 +212,12 @@ public class ManualUI extends Application {
         return paneOperation;
     }
 
-    private TitledPane createPaneSupportedEncryptations() {
-        final TitledPane paneSupportedEncryptations = new TitledPane();
-        paneSupportedEncryptations.setText(LanguageManager.get("Supported.Encryptions"));
+    private TitledPane createPaneSupportedEncryptions() {
+        final TitledPane paneSupportedEncryptions = new TitledPane();
+        paneSupportedEncryptions.setText(LanguageManager.get("Supported.Encryptions"));
 
         final GridPane paneContent = new GridPane();
-        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-encryptation");
+        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-encryption");
 
         final ScrollPane scrollContent = new ScrollPane(paneContent);
         scrollContent.getStyleClass().add("scroll-content-manual");
@@ -246,7 +249,7 @@ public class ManualUI extends Application {
         paneContent.add(labels[4], 1, 1);
         paneContent.add(labels[5], 2, 1);
 
-        paneSupportedEncryptations.setContent(scrollContent);
-        return paneSupportedEncryptations;
+        paneSupportedEncryptions.setContent(scrollContent);
+        return paneSupportedEncryptions;
     }
 }

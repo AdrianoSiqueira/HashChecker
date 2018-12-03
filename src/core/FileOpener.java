@@ -22,15 +22,15 @@ public class FileOpener extends Application {
     }
 
     public File openFile() {
-        fileChooser.setTitle(LanguageManager.get().getString("Open.File.to.Check"));
+        fileChooser.setTitle(LanguageManager.get("Open.File.to.Check"));
         return fileChooser.showOpenDialog(stage);
     }
 
     public File openHash() {
-        fileChooser.setTitle(LanguageManager.get().getString("Open.Hash.File"));
+        fileChooser.setTitle(LanguageManager.get("Open.Hash.File"));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(LanguageManager.get().getString("Hash.Files"), "*.txt", "*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512"),
-                new FileChooser.ExtensionFilter(LanguageManager.get().getString("All"), "*")
+                new FileChooser.ExtensionFilter(LanguageManager.get("Hash.Files"), "*.txt", "*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512"),
+                new FileChooser.ExtensionFilter(LanguageManager.get("All"), "*")
         );
         return fileChooser.showOpenDialog(stage);
     }

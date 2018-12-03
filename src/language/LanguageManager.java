@@ -11,7 +11,7 @@ public class LanguageManager {
         bundle = ResourceBundle.getBundle(BASE_NAME, new Locale(language.getLanguage()));
     }
 
-    public static ResourceBundle get() {
-        return bundle;
+    public static String get(final String key) {
+        return bundle.getString(key);
     }
 }

@@ -5,210 +5,229 @@ import core.FileOpener;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.geometry.*;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import language.Language;
 import language.LanguageManager;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class AppUI extends Application {
     private final AppController controller;
 
-    private Stage stage;
+    private final Stage stage;
 
-    private MenuBar menuBar;
-    private Menu menuSettings;
-    private Menu menuSettingsLanguage;
-    private Menu menuHelp;
-    private CustomMenuItem itemSettingsLanguage;
-    private MenuItem itemManual;
+    private final MenuBar menuBar;
+    private final Menu menuSettings;
+    private final Menu menuLanguage;
+    private final Menu menuHelp;
+    private final MenuItem itemManual;
+    private final MenuItem itemAbout;
 
-    private Spinner<String> spinnerSettingsLanguage;
+    private final BorderPane paneRoot;
+    private final ScrollPane scrollBackground;
+    private final GridPane paneBackground;
 
-    private BorderPane paneRoot;
-    private ScrollPane scrollBackground;
-    private GridPane paneBackground;
+    private final Label labelTitle;
+    private final Label labelFileToCheck;
+    private final Label labelHashFile;
 
-    private Label labelTitle;
-    private Label labelFileToCheck;
-    private Label labelHashFile;
+    private final TextField fieldFileToCheck;
+    private final TextField fieldHashFile;
 
-    private TextField fieldFileToCheck;
-    private TextField fieldHashFile;
+    private final Button buttonOpenFileToCheck;
+    private final Button buttonOpenHashFile;
 
-    private Button buttonOpenFileToCheck;
-    private Button buttonOpenHashFile;
+    {
+        controller = new AppController();
 
-    private Separator separator;
+        menuLanguage = configureMenuLanguage();
+        menuSettings = configureMenuSettings();
+        itemManual = configureMenuItemManual();
+        itemAbout = configureMenuItemAbout();
+        menuHelp = configureMenuHelp();
+        menuBar = configureMenuBar();
 
-    public AppUI() {
-        this.controller = new AppController();
+        labelTitle = configureLabelTitle();
+        labelFileToCheck = configureLabel();
+        labelHashFile = configureLabel();
+
+        fieldFileToCheck = configureFieldFileToCheck();
+        fieldHashFile = configureFieldHashFile();
+
+        buttonOpenFileToCheck = configureButtonOpenFileToCheck();
+        buttonOpenHashFile = configureButtonOpenHashFile();
+
+        paneBackground = configurePaneBackground();
+        scrollBackground = configureScrollBackground();
+        paneRoot = configurePaneRoot();
+
+        stage = configureStage();
     }
 
     @Override
     public void start(Stage stage) {
-        this.stage = stage;
-        initComponents();
         updateLanguage();
-        configurePaneBackground();
-        configureScrollBackground();
-        configureMenuBar();
-        configurePaneRoot();
-        configureSpinnerSettingsLanguage();
-        configureFont();
+    }
 
-        fieldFileToCheck.setEditable(false);
-        fieldFileToCheck.setMinWidth(300);
-        fieldFileToCheck.setOnAction(event -> buttonOpenFileToCheck.fire());
-        fieldFileToCheck.setOnMouseClicked(event -> buttonOpenFileToCheck.fire());
-
-        fieldHashFile.setEditable(false);
-        fieldHashFile.setMinWidth(300);
-        fieldHashFile.setOnAction(event -> buttonOpenHashFile.fire());
-        fieldHashFile.setOnMouseClicked(event -> buttonOpenHashFile.fire());
-
-        buttonOpenFileToCheck.setMinWidth(100);
-        buttonOpenFileToCheck.setOnAction(event -> {
+    private Button configureButtonOpenFileToCheck() {
+        final Button button = new Button();
+        button.setTooltip(new Tooltip());
+        button.setOnAction(event -> {
             final File file = new FileOpener().openFile();
             controller.setFileToCheck(file);
             fieldFileToCheck.setText(file != null ? file.toString() : "");
             run();
         });
+        return button;
+    }
 
-        buttonOpenHashFile.setMinWidth(100);
-        buttonOpenHashFile.setOnAction(event -> {
+    private Button configureButtonOpenHashFile() {
+        final Button button = new Button();
+        button.setTooltip(new Tooltip());
+        button.setOnAction(event -> {
             final File file = new FileOpener().openHash();
             controller.setHashFile(file);
             fieldHashFile.setText(file != null ? file.toString() : "");
             run();
         });
-
-        configureStage();
+        return button;
     }
 
-    private void initComponents() {
-        menuBar = new MenuBar();
-        menuSettings = new Menu();
-        menuSettingsLanguage = new Menu();
-        menuHelp = new Menu();
-        itemSettingsLanguage = new CustomMenuItem();
-        itemManual = new MenuItem();
-
-        spinnerSettingsLanguage = new Spinner<>();
-
-        paneRoot = new BorderPane();
-        scrollBackground = new ScrollPane();
-        paneBackground = new GridPane();
-
-        labelTitle = new Label();
-        labelFileToCheck = new Label();
-        labelHashFile = new Label();
-
-        fieldFileToCheck = new TextField();
-        fieldHashFile = new TextField();
-
-        buttonOpenFileToCheck = new Button();
-        buttonOpenHashFile = new Button();
-
-        separator = new Separator(Orientation.HORIZONTAL);
+    private TextField configureFieldFileToCheck() {
+        final TextField field = new TextField();
+        field.setTooltip(new Tooltip());
+        field.setEditable(false);
+        field.getStyleClass().add("field-file");
+        field.setOnAction(event -> buttonOpenFileToCheck.fire());
+        field.setOnMouseClicked(event -> buttonOpenFileToCheck.fire());
+        return field;
     }
 
-    private void configureStage() {
-        stage.setMinWidth(530);
-
-        /* Lock vertical resize */
-        stage.setMinHeight(239);
-        stage.setMaxHeight(239);
-
-        stage.setScene(new Scene(paneRoot));
-        stage.show();
+    private TextField configureFieldHashFile() {
+        final TextField field = new TextField();
+        field.setTooltip(new Tooltip());
+        field.setEditable(false);
+        field.getStyleClass().add("field-file");
+        field.setOnAction(event -> buttonOpenHashFile.fire());
+        field.setOnMouseClicked(event -> buttonOpenHashFile.fire());
+        return field;
     }
 
-    private void configureMenuBar() {
-        itemSettingsLanguage.setContent(spinnerSettingsLanguage);
-        itemSettingsLanguage.setHideOnClick(false);
-
-        menuSettingsLanguage.getItems().add(itemSettingsLanguage);
-
-        menuSettings.getItems().add(menuSettingsLanguage);
-
-        menuHelp.setVisible(false);
-        menuHelp.getItems().add(itemManual);
-
-        menuBar.getMenus().addAll(menuSettings, menuHelp);
+    private Label configureLabel() {
+        final Label label = new Label();
+        label.getStyleClass().add("label-guide");
+        return label;
     }
 
-    private void configurePaneRoot() {
-        paneRoot.setTop(menuBar);
-        paneRoot.setCenter(scrollBackground);
-
-        BorderPane.setAlignment(scrollBackground, Pos.CENTER);
+    private Label configureLabelTitle() {
+        final Label label = new Label();
+        label.getStyleClass().add("label-title");
+        return label;
     }
 
-    private void configureScrollBackground() {
-        scrollBackground.setFitToWidth(true);
-        scrollBackground.setFitToHeight(true);
-        scrollBackground.setContent(paneBackground);
+    private MenuBar configureMenuBar() {
+        return new MenuBar(menuSettings, menuHelp);
     }
 
-    private void configurePaneBackground() {
-        GridPane.setConstraints(labelTitle, 0, 0, 3, 1, HPos.CENTER, VPos.CENTER);
-
-        GridPane.setConstraints(labelFileToCheck, 0, 1, 1, 1, HPos.RIGHT, VPos.CENTER);
-        GridPane.setConstraints(fieldFileToCheck, 1, 1, 1, 1, HPos.LEFT, VPos.CENTER, Priority.ALWAYS, Priority.NEVER);
-        GridPane.setConstraints(buttonOpenFileToCheck, 2, 1, 1, 1, HPos.RIGHT, VPos.CENTER);
-
-        GridPane.setConstraints(separator, 0, 2, 3, 1, HPos.CENTER, VPos.CENTER);
-
-        GridPane.setConstraints(labelHashFile, 0, 3, 1, 1, HPos.RIGHT, VPos.CENTER);
-        GridPane.setConstraints(fieldHashFile, 1, 3, 1, 1, HPos.LEFT, VPos.CENTER, Priority.ALWAYS, Priority.NEVER);
-        GridPane.setConstraints(buttonOpenHashFile, 2, 3, 1, 1, HPos.RIGHT, VPos.CENTER);
-
-        paneBackground.setAlignment(Pos.CENTER);
-        paneBackground.setPadding(new Insets(20));
-        paneBackground.setHgap(15);
-        paneBackground.setVgap(15);
-        paneBackground.getChildren().addAll(labelTitle,
-                labelFileToCheck, fieldFileToCheck, buttonOpenFileToCheck,
-                separator,
-                labelHashFile, fieldHashFile, buttonOpenHashFile);
+    private Menu configureMenuHelp() {
+        final Menu menu = new Menu();
+        menu.getItems().add(itemManual);
+        menu.getItems().add(itemAbout);
+        return menu;
     }
 
-    private void configureSpinnerSettingsLanguage() {
-        spinnerSettingsLanguage.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
-        spinnerSettingsLanguage.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableList(Language.allNames())));
-        spinnerSettingsLanguage.valueProperty().addListener((observable, oldValue, newValue) -> {
+    private MenuItem configureMenuItemAbout() {
+        final MenuItem item = new MenuItem();
+        item.setOnAction(event -> new AboutUI());
+        return item;
+    }
+
+    private MenuItem configureMenuItemLanguage() {
+        return new CustomMenuItem(configureSpinnerLanguage(), false);
+    }
+
+    private MenuItem configureMenuItemManual() {
+        final MenuItem item = new MenuItem();
+        item.setOnAction(event -> new ManualUI());
+        return item;
+    }
+
+    private Menu configureMenuLanguage() {
+        final Menu menu = new Menu();
+        menu.getItems().add(configureMenuItemLanguage());
+        return menu;
+    }
+
+    private Menu configureMenuSettings() {
+        final Menu menu = new Menu();
+        menu.getItems().add(menuLanguage);
+        return menu;
+    }
+
+    private GridPane configurePaneBackground() {
+        /* Enable column #1 to grow when window resize */
+        GridPane.setHgrow(fieldFileToCheck, Priority.ALWAYS);
+
+        final GridPane pane = new GridPane();
+        pane.getStyleClass().add("pane-background");
+        pane.add(labelTitle, 0, 0, 3, 1);
+        pane.add(labelFileToCheck, 0, 1);
+        pane.add(fieldFileToCheck, 1, 1);
+        pane.add(buttonOpenFileToCheck, 2, 1);
+        pane.add(new Separator(Orientation.HORIZONTAL), 0, 2, 3, 1);
+        pane.add(labelHashFile, 0, 3);
+        pane.add(fieldHashFile, 1, 3);
+        pane.add(buttonOpenHashFile, 2, 3);
+        return pane;
+    }
+
+    private BorderPane configurePaneRoot() {
+        final BorderPane pane = new BorderPane();
+        pane.setTop(menuBar);
+        pane.setCenter(scrollBackground);
+        return pane;
+    }
+
+    private Scene configureScene() {
+        final Scene scene = new Scene(paneRoot);
+        scene.getRoot().getStylesheets().clear();
+        scene.getRoot().getStylesheets().add("/gui/css/AppUI.css");
+        return scene;
+    }
+
+    private ScrollPane configureScrollBackground() {
+        final ScrollPane scroll = new ScrollPane(paneBackground);
+        scroll.getStyleClass().add("scroll-background");
+        return scroll;
+    }
+
+    private Spinner<String> configureSpinnerLanguage() {
+        final Spinner<String> spinner = new Spinner<>(FXCollections.observableList(Language.allNames()));
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
             LanguageManager.set(Language.getByName(newValue));
             updateLanguage();
         });
+        return spinner;
     }
 
-    private void configureFont() {
-        try {
-            final Font fontTitle = Font.loadFont(new FileInputStream(new File("src/font/RobotoSlab-Regular.ttf")), 20);
-            final Font font = Font.loadFont(new FileInputStream(new File("src/font/Roboto-Regular.ttf")), 16);
+    private Stage configureStage() {
+        final Stage stage = new Stage();
+        stage.setMinWidth(531);
 
-            labelTitle.setFont(fontTitle);
-            labelFileToCheck.setFont(font);
-            labelHashFile.setFont(font);
+        /* Lock vertical resize */
+        stage.setMinHeight(240);
+        stage.setMaxHeight(240);
 
-            fieldFileToCheck.setFont(font);
-            fieldHashFile.setFont(font);
-
-            buttonOpenFileToCheck.setFont(font);
-            buttonOpenHashFile.setFont(font);
-        } catch (FileNotFoundException e) {
-            System.err.println(e.toString());
-        }
+        stage.setScene(configureScene());
+        stage.show();
+        return stage;
     }
 
     private void run() {
@@ -227,18 +246,38 @@ public class AppUI extends Application {
     }
 
     private void updateLanguage() {
-        stage.setTitle(LanguageManager.get().getString("Hash.Checker") + " v3.0");
+        stage.setTitle(LanguageManager.get("Hash.Checker") + " v3.1");
 
-        menuSettings.setText(LanguageManager.get().getString("Settings"));
-        menuSettingsLanguage.setText(LanguageManager.get().getString("Language"));
-        menuHelp.setText(LanguageManager.get().getString("Help"));
-        itemManual.setText(LanguageManager.get().getString("Manual"));
+        menuSettings.setText(LanguageManager.get("Settings"));
+        menuLanguage.setText(LanguageManager.get("Language"));
+        menuHelp.setText(LanguageManager.get("Help"));
+        itemManual.setText(LanguageManager.get("Manual"));
+        itemAbout.setText(LanguageManager.get("About"));
 
-        labelTitle.setText(LanguageManager.get().getString("Hash.Checker"));
-        labelFileToCheck.setText(LanguageManager.get().getString("File"));
-        labelHashFile.setText(LanguageManager.get().getString("Hash"));
+        labelTitle.setText(LanguageManager.get("Hash.Checker"));
+        labelFileToCheck.setText(LanguageManager.get("File") + ":");
+        labelHashFile.setText(LanguageManager.get("Hash") + ":");
 
-        buttonOpenFileToCheck.setText(LanguageManager.get().getString("Open"));
-        buttonOpenHashFile.setText(LanguageManager.get().getString("Open"));
+        fieldFileToCheck.getTooltip().setText(LanguageManager.get("Click.to.open.file.to.check"));
+        fieldHashFile.getTooltip().setText(LanguageManager.get("Click.to.open.hash.file"));
+
+        buttonOpenFileToCheck.setText(LanguageManager.get("Open"));
+        buttonOpenFileToCheck.getTooltip().setText(LanguageManager.get("Open.File.to.Check"));
+
+        buttonOpenHashFile.setText(LanguageManager.get("Open"));
+        buttonOpenHashFile.getTooltip().setText(LanguageManager.get("Open.Hash.File"));
     }
 }
+
+/*
+ * MenuBar Scheme:
+ *
+ * MenuBar
+ *  > MenuSettings
+ *      > MenuLanguage
+ *          > ItemLanguage
+ *              > SpinnerLanguage
+ *  > MenuHelp
+ *      > ItemManual
+ *      > ItemAbout
+ */

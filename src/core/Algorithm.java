@@ -20,7 +20,14 @@ public enum Algorithm {
         for (Algorithm value : values())
             if (value.length == length)
                 return value;
-        return null;
+
+        /*
+         * The execution will never reach this return statement
+         *
+         * This MD5 returned is just to satisfy the method's return and to avoid
+         * the warnings of NullPointerException.
+         */
+        return MD5;
     }
 
     public String getAlgorithm() {

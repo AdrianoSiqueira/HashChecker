@@ -4,8 +4,9 @@
 <p>This program calculates the hash encryption of a file and verifies it's integrity comparing with the official hash contained in another file.</p>
 <p>Inside the <b>build</b> folder is the executable "HashChecker.jar", with which you can execute the program without the need to compile the source code.</p>
 
-<p>To run, open a terminal and type:<p>
-<pre>$ java -jar HashChecker.jar</pre>
+<h5>How to Run</h5>
+<p><i>Windows:</i> Double click in HashChecker.jar file.</p>
+<p><i>Linux and Mac:</i> Double click in HashChecker.jar file. If its not work, open a terminal window and type 'java -jar HashChecker.jar'</p>
 
 <h5>Requirements</h5>
 <ul>
@@ -31,11 +32,20 @@
     <li>If the official file is not a valid text file, the program will be behave unpredictably.</li>
 </ol>
 
+<h5>Change log v3.1:</h5>
+<ul>
+    <li>Added about and manual.</li>
+    <li>Added CSS to style.</li>
+    <li>Added custom fonts.</li>
+    <li>Added hints in components.</li>
+    <li>Fix hash parse from bytes to string.</li>
+</ul>
+
 <h5>Change log v3.0:</h5>
 <ul>
     <li>New GUI.</li>
-    <li>Added multiplatform support.</li>
-    <li>Added multithread support for better performance.</li>
+    <li>Added multi platform support.</li>
+    <li>Added multi thread support for better performance.</li>
     <li>Added support to other languages.</li>
     <li>Now it checks all the official hashes to better determine integrity.</li>
     <li>The results are now shown in a table.</li>

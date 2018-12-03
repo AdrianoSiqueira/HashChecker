@@ -1,0 +1,42 @@
+@font-face {
+    src: url("/font/Roboto-Regular.ttf");
+}
+
+@font-face {
+    src: url("/font/RobotoSlab-Regular.ttf");
+}
+
+.button {
+    -fx-font: normal normal 16 "Roboto";
+    -fx-min-width: 100;
+}
+
+.label-guide {
+    -fx-alignment: center-right;
+    -fx-font: normal normal 16 "Roboto";
+    -fx-max-width: infinity;
+}
+
+.label-title {
+    -fx-font: normal normal 20 "Roboto Slab";
+    -fx-alignment: center;
+    -fx-max-width: infinity;
+}
+
+.pane-background {
+    -fx-alignment: center;
+    -fx-hgap: 15;
+    -fx-vgap: 15;
+    -fx-padding: 20;
+}
+
+.scroll-background {
+    -fx-alignment: center;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.field-file {
+    -fx-font: normal normal 16 "Roboto";
+    -fx-min-width: 300;
+}

@@ -1,0 +1,27 @@
+.column-algorithm {
+    /*-fx-min-width: 100;*/
+    /*-fx-max-width: 100;*/
+}
+
+.column-calculated-hash,
+.column-official-hash {
+    /*-fx-min-width: 150;*/
+}
+
+.column-status {
+    -fx-alignment: center;
+    /*-fx-min-width: 75;*/
+    /*-fx-max-width: 75;*/
+}
+
+.pane-root {
+    -fx-alignment: center;
+    -fx-padding: 15;
+}
+
+.scroll-root {
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+    -fx-hbar-policy: as-needed;
+    -fx-vbar-policy: as-needed;
+}

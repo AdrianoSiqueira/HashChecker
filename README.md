@@ -1,4 +1,3 @@
-` ``html
 <h1>Hash Checker</h1>
 
 <h5>About</h5>
@@ -69,4 +68,3 @@
     <li>Some improvements in performance.</li>
     <li>Translation of all project to english.</li>
 </ul>
-```

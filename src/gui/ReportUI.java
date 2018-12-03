@@ -122,7 +122,6 @@ public class ReportUI extends Application {
         table.getColumns().add(configureColumnCalculatedHash());
         table.getColumns().add(configureColumnStatus());
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        table.getSortOrder().add(table.getColumns().get(0));
         return table;
     }
 
@@ -141,6 +140,7 @@ public class ReportUI extends Application {
         }
 
         table.setItems(list);
+        table.getSortOrder().add(table.getColumns().get(0));
     }
 
     protected Stage getStage() {

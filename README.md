@@ -34,10 +34,11 @@
 
 <h5>Change log v3.1:</h5>
 <ul>
-    <li>Added custom fonts.</li>
     <li>Added about and manual.</li>
+    <li>Added CSS to style.</li>
+    <li>Added custom fonts.</li>
     <li>Added hints in components.</li>
-    <li>Styling is now via CSS.</li>
+    <li>Fix hash parse from bytes to string.</li>
 </ul>
 
 <h5>Change log v3.0:</h5>

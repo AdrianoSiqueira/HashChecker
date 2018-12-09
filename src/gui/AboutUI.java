@@ -2,11 +2,9 @@ package gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import language.LanguageManager;
@@ -28,18 +26,12 @@ public class AboutUI extends Application {
     public void start(Stage stage) {
     }
 
-    private Label configureLabelContentAccount() {
-        final Label label = new Label("github.com/AdrianoSiqueira");
-        label.getStyleClass().add("label-content");
-        label.setTooltip(new Tooltip(LanguageManager.get("Click.to.copy.to.clipboard")));
-        label.setOnMouseClicked(event -> {
-            final ClipboardContent content = new ClipboardContent();
-            content.putString(label.getText());
-
-            final Clipboard clipboard = Clipboard.getSystemClipboard();
-            clipboard.setContent(content);
-        });
-        return label;
+    private Hyperlink configureLinkContentAccount() {
+        final Hyperlink hyperlink = new Hyperlink("github.com/AdrianoSiqueira");
+        hyperlink.getStyleClass().add("link-content");
+        hyperlink.visitedProperty().addListener((observable, oldValue, newValue) -> hyperlink.setVisited(false));
+        hyperlink.setOnMouseClicked(event -> getHostServices().showDocument(hyperlink.getText()));
+        return hyperlink;
     }
 
     private Label configureLabelContentDeveloper() {
@@ -48,18 +40,12 @@ public class AboutUI extends Application {
         return label;
     }
 
-    private Label configureLabelContentSource() {
-        final Label label = new Label("github.com/AdrianoSiqueira/HashChecker");
-        label.getStyleClass().add("label-content");
-        label.setTooltip(new Tooltip(LanguageManager.get("Click.to.copy.to.clipboard")));
-        label.setOnMouseClicked(event -> {
-            final ClipboardContent content = new ClipboardContent();
-            content.putString(label.getText());
-
-            final Clipboard clipboard = Clipboard.getSystemClipboard();
-            clipboard.setContent(content);
-        });
-        return label;
+    private Hyperlink configureLinkContentSource() {
+        final Hyperlink hyperlink = new Hyperlink("github.com/AdrianoSiqueira/HashChecker");
+        hyperlink.getStyleClass().add("link-content");
+        hyperlink.visitedProperty().addListener((observable, oldValue, newValue) -> hyperlink.setVisited(false));
+        hyperlink.setOnMouseClicked(event -> getHostServices().showDocument(hyperlink.getText()));
+        return hyperlink;
     }
 
     private Label configureLabelContentTitle() {
@@ -79,13 +65,11 @@ public class AboutUI extends Application {
         list.add(configureLabelSubjectDeveloper());
         list.add(configureLabelContentDeveloper());
         list.add(configureLabelSubjectAccount());
-        list.add(configureLabelContentAccount());
         list.add(configureLabelSubjectTitle());
         list.add(configureLabelContentTitle());
         list.add(configureLabelSubjectVersion());
         list.add(configureLabelContentVersion());
         list.add(configureLabelSubjectSource());
-        list.add(configureLabelContentSource());
         return list;
     }
 
@@ -122,17 +106,17 @@ public class AboutUI extends Application {
     private GridPane configurePaneRoot() {
         final GridPane pane = new GridPane();
         pane.getStyleClass().add("pane-root");
-        pane.add(labels.get(4), 0, 0);
-        pane.add(labels.get(5), 1, 0);
-        pane.add(labels.get(6), 0, 1);
-        pane.add(labels.get(7), 1, 1);
-        pane.add(labels.get(8), 0, 2);
-        pane.add(labels.get(9), 1, 2);
+        pane.add(labels.get(3), 0, 0);
+        pane.add(labels.get(4), 1, 0);
+        pane.add(labels.get(5), 0, 1);
+        pane.add(labels.get(6), 1, 1);
+        pane.add(labels.get(7), 0, 2);
+        pane.add(configureLinkContentSource(), 1, 2);
         pane.add(new Separator(), 0, 3, 2, 1);
         pane.add(labels.get(0), 0, 4);
         pane.add(labels.get(1), 1, 4);
         pane.add(labels.get(2), 0, 5);
-        pane.add(labels.get(3), 1, 5);
+        pane.add(configureLinkContentAccount(), 1, 5);
         return pane;
     }
 

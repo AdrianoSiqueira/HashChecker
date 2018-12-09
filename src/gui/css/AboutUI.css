@@ -10,7 +10,8 @@
     -fx-tooltip-visible: true;
 }
 
-.label-content {
+.label-content,
+link-content {
     -fx-font: normal normal 16px "Roboto";
 }
 

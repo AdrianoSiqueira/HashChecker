@@ -1,0 +1,16 @@
+@font-face {
+    src: url("/extras/font/Roboto-Regular.ttf");
+}
+
+@font-face {
+    src: url("/extras/font/Roboto-Bold.ttf");
+}
+
+.button-open {
+    -fx-font: normal normal 16px "Roboto";
+    -fx-min-width: 100;
+}
+
+.button-open:hover {
+    -fx-font-weight: bold;
+}

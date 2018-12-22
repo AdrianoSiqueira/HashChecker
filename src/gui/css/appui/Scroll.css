@@ -1,0 +1,5 @@
+.scroll-background {
+    -fx-alignment: center;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}

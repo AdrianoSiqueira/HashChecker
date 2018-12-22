@@ -1,24 +1,23 @@
 package gui;
 
+import extras.language.LanguageManager;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import language.LanguageManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AboutUI extends Application {
-    private final List<Label> labels;
-    private final GridPane paneRoot;
+    private Map<String, Label> labels;
 
-    {
+    public AboutUI() {
         labels = configureLabels();
-        paneRoot = configurePaneRoot();
         configureStage();
     }
 
@@ -26,104 +25,54 @@ public class AboutUI extends Application {
     public void start(Stage stage) {
     }
 
-    private Hyperlink configureLinkContentAccount() {
-        final Hyperlink hyperlink = new Hyperlink("github.com/AdrianoSiqueira");
-        hyperlink.getStyleClass().add("link-content");
-        hyperlink.visitedProperty().addListener((observable, oldValue, newValue) -> hyperlink.setVisited(false));
-        hyperlink.setOnMouseClicked(event -> getHostServices().showDocument(hyperlink.getText()));
-        return hyperlink;
-    }
-
-    private Label configureLabelContentDeveloper() {
-        final Label label = new Label("Adriano Siqueira");
-        label.getStyleClass().add("label-content");
+    private Label configureLabel(final String text, final String styleClass) {
+        final Label label = new Label(text);
+        label.getStyleClass().add(styleClass);
         return label;
     }
 
-    private Hyperlink configureLinkContentSource() {
-        final Hyperlink hyperlink = new Hyperlink("github.com/AdrianoSiqueira/HashChecker");
-        hyperlink.getStyleClass().add("link-content");
-        hyperlink.visitedProperty().addListener((observable, oldValue, newValue) -> hyperlink.setVisited(false));
-        hyperlink.setOnMouseClicked(event -> getHostServices().showDocument(hyperlink.getText()));
-        return hyperlink;
-    }
+    private Map<String, Label> configureLabels() {
+        final Map<String, Label> list = new HashMap<>();
+        list.put("s-developer", configureLabel(LanguageManager.get("Developer") + ":", "label-subject"));
+        list.put("s-github-account", configureLabel(LanguageManager.get("Github.Account") + ":", "label-subject"));
+        list.put("s-title", configureLabel(LanguageManager.get("Title") + ":", "label-subject"));
+        list.put("s-version", configureLabel(LanguageManager.get("Version") + ":", "label-subject"));
+        list.put("s-source", configureLabel(LanguageManager.get("Source.code") + ":", "label-subject"));
 
-    private Label configureLabelContentTitle() {
-        final Label label = new Label(LanguageManager.get("Hash.Checker"));
-        label.getStyleClass().add("label-content");
-        return label;
-    }
-
-    private Label configureLabelContentVersion() {
-        final Label label = new Label("3.1");
-        label.getStyleClass().add("label-content");
-        return label;
-    }
-
-    private List<Label> configureLabels() {
-        final List<Label> list = new ArrayList<>();
-        list.add(configureLabelSubjectDeveloper());
-        list.add(configureLabelContentDeveloper());
-        list.add(configureLabelSubjectAccount());
-        list.add(configureLabelSubjectTitle());
-        list.add(configureLabelContentTitle());
-        list.add(configureLabelSubjectVersion());
-        list.add(configureLabelContentVersion());
-        list.add(configureLabelSubjectSource());
+        list.put("c-developer", configureLabel("Adriano Siqueira", "label-content"));
+        list.put("c-title", configureLabel(LanguageManager.get("Hash.Checker"), "label-content"));
+        list.put("c-version", configureLabel("3.2", "label-content"));
         return list;
     }
 
-    private Label configureLabelSubjectAccount() {
-        final Label label = new Label(LanguageManager.get("Github.Account") + ":");
-        label.getStyleClass().add("label-subject");
-        return label;
-    }
-
-    private Label configureLabelSubjectDeveloper() {
-        final Label label = new Label(LanguageManager.get("Developer") + ":");
-        label.getStyleClass().add("label-subject");
-        return label;
-    }
-
-    private Label configureLabelSubjectTitle() {
-        final Label label = new Label(LanguageManager.get("Title") + ":");
-        label.getStyleClass().add("label-subject");
-        return label;
-    }
-
-    private Label configureLabelSubjectVersion() {
-        final Label label = new Label(LanguageManager.get("Version") + ":");
-        label.getStyleClass().add("label-subject");
-        return label;
-    }
-
-    private Label configureLabelSubjectSource() {
-        final Label label = new Label(LanguageManager.get("Source.code") + ":");
-        label.getStyleClass().add("label-subject");
-        return label;
+    private Hyperlink configureLink(final String text) {
+        final Hyperlink hyperlink = new Hyperlink(text);
+        hyperlink.getStyleClass().add("link-content");
+        hyperlink.visitedProperty().bind(new SimpleBooleanProperty(false));
+        hyperlink.setOnMouseClicked(event -> getHostServices().showDocument(hyperlink.getText()));
+        return hyperlink;
     }
 
     private GridPane configurePaneRoot() {
         final GridPane pane = new GridPane();
         pane.getStyleClass().add("pane-root");
-        pane.add(labels.get(3), 0, 0);
-        pane.add(labels.get(4), 1, 0);
-        pane.add(labels.get(5), 0, 1);
-        pane.add(labels.get(6), 1, 1);
-        pane.add(labels.get(7), 0, 2);
-        pane.add(configureLinkContentSource(), 1, 2);
+        pane.add(labels.get("s-title"), 0, 0);
+        pane.add(labels.get("c-title"), 1, 0);
+        pane.add(labels.get("s-version"), 0, 1);
+        pane.add(labels.get("c-version"), 1, 1);
+        pane.add(labels.get("s-source"), 0, 2);
+        pane.add(configureLink("github.com/AdrianoSiqueira/HashChecker"), 1, 2);
         pane.add(new Separator(), 0, 3, 2, 1);
-        pane.add(labels.get(0), 0, 4);
-        pane.add(labels.get(1), 1, 4);
-        pane.add(labels.get(2), 0, 5);
-        pane.add(configureLinkContentAccount(), 1, 5);
+        pane.add(labels.get("s-developer"), 0, 4);
+        pane.add(labels.get("c-developer"), 1, 4);
+        pane.add(labels.get("s-github-account"), 0, 5);
+        pane.add(configureLink("github.com/AdrianoSiqueira"), 1, 5);
         return pane;
     }
 
     private Scene configureScene() {
-        final Scene scene = new Scene(paneRoot);
-        scene.getRoot().getStylesheets().clear();
-        scene.getRoot().getStylesheets().add("/gui/css/AboutUI.css");
+        final Scene scene = new Scene(configurePaneRoot());
+        scene.getStylesheets().addAll("/gui/css/aboutui/Label.css", "/gui/css/aboutui/Link.css", "/gui/css/aboutui/Pane.css");
         return scene;
     }
 

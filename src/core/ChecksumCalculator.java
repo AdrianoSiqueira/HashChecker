@@ -15,7 +15,7 @@ public class ChecksumCalculator {
         this.algorithms = new ArrayList<>(algorithms);
     }
 
-    public Map<Integer, String> calculateSpeed() {
+    public Map<Integer, String> calculate() {
         final Map<Integer, String> calculatedHashes = new HashMap<>();
         final List<Thread> threadList = new ArrayList<>();
 

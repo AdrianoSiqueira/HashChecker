@@ -24,7 +24,7 @@ public class AppController {
     public boolean run() {
         if (fileToCheck != null && hashFile != null) {
             officialHashes.putAll(new FileReader(hashFile).read());
-            calculatedHashes.putAll(new ChecksumCalculator(fileToCheck, officialHashes.keySet()).calculateSpeed());
+            calculatedHashes.putAll(new ChecksumCalculator(fileToCheck, officialHashes.keySet()).calculate());
             results.putAll(new ChecksumComparator(officialHashes, calculatedHashes).compare());
             return true;
         } else return false;

@@ -2,48 +2,59 @@ package gui;
 
 import core.Algorithm;
 import core.Report;
+import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import language.LanguageManager;
 
+import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ReportUI extends Application {
-    private final Stage stage;
+    private Map<Integer, String> officialHashes;
+    private Map<Integer, String> calculatedHashes;
+    private Map<Integer, Boolean> results;
 
-    private final ScrollPane scrollRoot;
-    private final StackPane paneRoot;
+    private Stage stage;
+    private Stage parent;
 
-    private final TableView<Report> tableReport;
-
-    private final Map<Integer, String> officialHashes;
-    private final Map<Integer, String> calculatedHashes;
-    private final Map<Integer, Boolean> results;
-
-    {
-        tableReport = configureTableReport();
-        paneRoot = configurePaneRoot();
-        scrollRoot = configureScrollRoot();
-        stage = configureStage();
-    }
-
-    public ReportUI(Map<Integer, String> officialHashes, Map<Integer, String> calculatedHashes, Map<Integer, Boolean> results) {
+    public ReportUI(Map<Integer, String> officialHashes, Map<Integer, String> calculatedHashes, Map<Integer, Boolean> results, Stage parent) {
         this.officialHashes = officialHashes;
         this.calculatedHashes = calculatedHashes;
         this.results = results;
-        fillTable(tableReport);
+        this.parent = parent;
+        stage = configureStage();
     }
 
     @Override
     public void start(Stage stage) {
+    }
+
+    private Map<String, Object> calculateIntegrity() {
+        float good = 0;
+        for (boolean value : results.values())
+            if (value) ++good;
+
+        final String id;
+        final double percentil = good / results.size();
+        if (percentil == 1) id = "100";
+        else if (percentil >= .75) id = "75";
+        else if (percentil >= .5) id = "50";
+        else if (percentil >= .25) id = "25";
+        else id = "0";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("percentil", percentil);
+        return map;
     }
 
     private TableColumn<Report, String> configureColumnAlgorithm() {
@@ -82,53 +93,87 @@ public class ReportUI extends Application {
         return column;
     }
 
-    private StackPane configurePaneRoot() {
-        final StackPane pane = new StackPane(tableReport);
+    private HBox configurePaneIntegrity() {
+        Map<String, Object> map = calculateIntegrity();
+
+        Label label = new Label(new DecimalFormat("#.##").format((double) (map.get("percentil")) * 100) + " %");
+        label.getStyleClass().add("label-integrity");
+        label.setId((String) map.get("id"));
+
+        ProgressBar bar = new ProgressBar((Double) map.get("percentil"));
+        bar.getStyleClass().add("bar-integrity");
+        bar.setId((String) map.get("id"));
+        bar.prefWidthProperty().bind(stage.widthProperty());
+
+        HBox pane = new HBox(label, bar);
+        pane.getStyleClass().add("pane-integrity");
+        return pane;
+    }
+
+    private VBox configurePaneRoot() {
+        VBox pane = new VBox(configureTableReport(), configurePaneIntegrity());
         pane.getStyleClass().add("pane-root");
         return pane;
     }
 
     private Scene configureScene() {
-        final Scene scene = new Scene(scrollRoot);
-        scene.getRoot().getStylesheets().clear();
-        scene.getRoot().getStylesheets().add("/gui/css/ReportUI.css");
+        final Scene scene = new Scene(configureScrollRoot());
+        scene.getStylesheets().addAll("/gui/css/reportui/Column.css",
+                "/gui/css/reportui/Label.css",
+                "/gui/css/reportui/Pane.css",
+                "/gui/css/reportui/ProgressBar.css",
+                "/gui/css/reportui/Scroll.css",
+                "/gui/css/reportui/Table.css");
         return scene;
     }
 
     private ScrollPane configureScrollRoot() {
-        final ScrollPane scroll = new ScrollPane(paneRoot);
+        final ScrollPane scroll = new ScrollPane(configurePaneRoot());
         scroll.getStyleClass().add("scroll-root");
         return scroll;
     }
 
     private Stage configureStage() {
-        final Stage stage = new Stage();
+        stage = new Stage();
 
         stage.setMinWidth(600);
-        stage.setMinHeight(232);
-        stage.setMaxHeight(232);
+        stage.setMinHeight(282);
+        stage.setMaxHeight(282);
 
         stage.setTitle(LanguageManager.get("Hash.Checker.Report"));
         stage.setScene(configureScene());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(parent);
         stage.show();
         return stage;
     }
 
     private TableView<Report> configureTableReport() {
-        final TableView<Report> table = new TableView<>();
+        final TableView<Report> table = new TableView<>(fillTable());
         table.getStyleClass().add("table-report");
+        table.setRowFactory(param -> new TableRow<>() {
+            protected void updateItem(Report item, boolean empty) {
+                if (!empty && item != null) {
+                    if (item.getStatus().equals(LanguageManager.get("Risk"))) setId("risk");
+                    else setId("secure");
+                }
+            }
+        });
+
         table.getColumns().add(configureColumnAlgorithm());
         table.getColumns().add(configureColumnOfficialHash());
         table.getColumns().add(configureColumnCalculatedHash());
         table.getColumns().add(configureColumnStatus());
+
+        table.getSortOrder().add(table.getColumns().get(0));
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         return table;
     }
 
-    private void fillTable(final TableView<Report> table) {
+    private ObservableList<Report> fillTable() {
         final ObservableList<Report> list = FXCollections.observableArrayList();
 
-        for (Integer key : officialHashes.keySet()) {
+        for (int key : officialHashes.keySet()) {
             final String algorithm = Algorithm.getByLength(key).getAlgorithm();
             final String official = officialHashes.get(key);
             final String calculated = calculatedHashes.get(key);
@@ -139,8 +184,7 @@ public class ReportUI extends Application {
             list.add(new Report(algorithm, official, calculated, status));
         }
 
-        table.setItems(list);
-        table.getSortOrder().add(table.getColumns().get(0));
+        return list;
     }
 
     protected Stage getStage() {

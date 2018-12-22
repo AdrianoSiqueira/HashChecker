@@ -3,7 +3,7 @@ package core;
 import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import language.LanguageManager;
+import extras.language.LanguageManager;
 
 import java.io.File;
 

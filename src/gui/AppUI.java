@@ -2,6 +2,8 @@ package gui;
 
 import core.AppController;
 import core.FileOpener;
+import extras.language.Language;
+import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -12,38 +14,31 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import language.Language;
-import language.LanguageManager;
 
 import java.io.File;
 
 public class AppUI extends Application {
-    private final AppController controller;
+    private AppController controller;
 
-    private final Stage stage;
+    private Stage stage;
 
-    private final MenuBar menuBar;
-    private final Menu menuSettings;
-    private final Menu menuLanguage;
-    private final Menu menuHelp;
-    private final MenuItem itemManual;
-    private final MenuItem itemAbout;
+    private Menu menuSettings;
+    private Menu menuLanguage;
+    private Menu menuHelp;
+    private MenuItem itemManual;
+    private MenuItem itemAbout;
 
-    private final BorderPane paneRoot;
-    private final ScrollPane scrollBackground;
-    private final GridPane paneBackground;
+    private Label labelTitle;
+    private Label labelFileToCheck;
+    private Label labelHashFile;
 
-    private final Label labelTitle;
-    private final Label labelFileToCheck;
-    private final Label labelHashFile;
+    private TextField fieldFileToCheck;
+    private TextField fieldHashFile;
 
-    private final TextField fieldFileToCheck;
-    private final TextField fieldHashFile;
+    private Button buttonOpenFileToCheck;
+    private Button buttonOpenHashFile;
 
-    private final Button buttonOpenFileToCheck;
-    private final Button buttonOpenHashFile;
-
-    {
+    public AppUI() {
         controller = new AppController();
 
         menuLanguage = configureMenuLanguage();
@@ -51,21 +46,16 @@ public class AppUI extends Application {
         itemManual = configureMenuItemManual();
         itemAbout = configureMenuItemAbout();
         menuHelp = configureMenuHelp();
-        menuBar = configureMenuBar();
 
-        labelTitle = configureLabelTitle();
-        labelFileToCheck = configureLabel();
-        labelHashFile = configureLabel();
+        labelTitle = configureLabel("label-title");
+        labelFileToCheck = configureLabel("label-guide");
+        labelHashFile = configureLabel("label-guide");
 
         fieldFileToCheck = configureFieldFileToCheck();
         fieldHashFile = configureFieldHashFile();
 
         buttonOpenFileToCheck = configureButtonOpenFileToCheck();
         buttonOpenHashFile = configureButtonOpenHashFile();
-
-        paneBackground = configurePaneBackground();
-        scrollBackground = configureScrollBackground();
-        paneRoot = configurePaneRoot();
 
         stage = configureStage();
     }
@@ -77,6 +67,7 @@ public class AppUI extends Application {
 
     private Button configureButtonOpenFileToCheck() {
         final Button button = new Button();
+        button.getStyleClass().add("button-open");
         button.setTooltip(new Tooltip());
         button.setOnAction(event -> {
             final File file = new FileOpener().openFile();
@@ -89,6 +80,7 @@ public class AppUI extends Application {
 
     private Button configureButtonOpenHashFile() {
         final Button button = new Button();
+        button.getStyleClass().add("button-open");
         button.setTooltip(new Tooltip());
         button.setOnAction(event -> {
             final File file = new FileOpener().openHash();
@@ -119,15 +111,9 @@ public class AppUI extends Application {
         return field;
     }
 
-    private Label configureLabel() {
+    private Label configureLabel(final String styleClass) {
         final Label label = new Label();
-        label.getStyleClass().add("label-guide");
-        return label;
-    }
-
-    private Label configureLabelTitle() {
-        final Label label = new Label();
-        label.getStyleClass().add("label-title");
+        label.getStyleClass().add(styleClass);
         return label;
     }
 
@@ -189,20 +175,19 @@ public class AppUI extends Application {
 
     private BorderPane configurePaneRoot() {
         final BorderPane pane = new BorderPane();
-        pane.setTop(menuBar);
-        pane.setCenter(scrollBackground);
+        pane.setTop(configureMenuBar());
+        pane.setCenter(configureScrollBackground());
         return pane;
     }
 
     private Scene configureScene() {
-        final Scene scene = new Scene(paneRoot);
-        scene.getRoot().getStylesheets().clear();
-        scene.getRoot().getStylesheets().add("/gui/css/AppUI.css");
+        final Scene scene = new Scene(configurePaneRoot());
+        scene.getStylesheets().addAll("/gui/css/appui/Button.css", "/gui/css/appui/Label.css", "/gui/css/appui/Pane.css", "/gui/css/appui/Scroll.css", "/gui/css/appui/TextField.css", "/gui/css/share/Tooltip.css");
         return scene;
     }
 
     private ScrollPane configureScrollBackground() {
-        final ScrollPane scroll = new ScrollPane(paneBackground);
+        final ScrollPane scroll = new ScrollPane(configurePaneBackground());
         scroll.getStyleClass().add("scroll-background");
         return scroll;
     }
@@ -233,7 +218,7 @@ public class AppUI extends Application {
     private void run() {
         new Thread(() -> Platform.runLater(() -> {
             if (controller.run()) {
-                final ReportUI reportUI = new ReportUI(controller.getOfficialHashes(), controller.getCalculatedHashes(), controller.getResults());
+                final ReportUI reportUI = new ReportUI(controller.getOfficialHashes(), controller.getCalculatedHashes(), controller.getResults(), stage);
                 reportUI.getStage().showingProperty().addListener((observable, oldValue, newValue) -> {
                     if (!newValue) {
                         fieldFileToCheck.clear();
@@ -255,11 +240,15 @@ public class AppUI extends Application {
         itemAbout.setText(LanguageManager.get("About"));
 
         labelTitle.setText(LanguageManager.get("Hash.Checker"));
-        labelFileToCheck.setText(LanguageManager.get("File") + ":");
-        labelHashFile.setText(LanguageManager.get("Hash") + ":");
 
-        fieldFileToCheck.getTooltip().setText(LanguageManager.get("Click.to.open.file.to.check"));
-        fieldHashFile.getTooltip().setText(LanguageManager.get("Click.to.open.hash.file"));
+        labelFileToCheck.setText(LanguageManager.get("File") + ":");
+        labelFileToCheck.setTooltip(new Tooltip(LanguageManager.get("File.to.be.checked")));
+
+        labelHashFile.setText(LanguageManager.get("Hash") + ":");
+        labelHashFile.setTooltip(new Tooltip(LanguageManager.get("File.with.official.hashes")));
+
+        fieldFileToCheck.setTooltip(new Tooltip(LanguageManager.get("Click.to.open.file.to.check")));
+        fieldHashFile.setTooltip(new Tooltip(LanguageManager.get("Click.to.open.hash.file")));
 
         buttonOpenFileToCheck.setText(LanguageManager.get("Open"));
         buttonOpenFileToCheck.getTooltip().setText(LanguageManager.get("Open.File.to.Check"));

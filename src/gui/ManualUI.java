@@ -1,5 +1,6 @@
 package gui;
 
+import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -9,36 +10,22 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import language.LanguageManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManualUI extends Application {
-    private final ScrollPane scrollRoot;
-    private final GridPane paneBackground;
+    private List<Label> sectionsIndex;
 
-    private final VBox paneMenuIndex;
-    private final List<Label> labelsMenu;
+    private Accordion accordion;
+    private List<TitledPane> sectionsManual;
 
-    private final Separator separator;
-
-    private final Accordion accordion;
-    private final List<TitledPane> panesManual;
-
-    {
-        labelsMenu = configureLabelsMenu();
-        paneMenuIndex = configurePaneMenuIndex();
-
-        separator = new Separator(Orientation.VERTICAL);
-
-        panesManual = configurePanesManual();
+    public ManualUI() {
+        sectionsIndex = configureSectionsIndex();
+        sectionsManual = configureSectionsManual();
         accordion = configureAccordion();
 
-        paneBackground = configurePaneBackground();
-        scrollRoot = configureScrollRoot();
-
-        start(configureStage());
+        configureStage();
     }
 
     @Override
@@ -48,17 +35,153 @@ public class ManualUI extends Application {
     private Accordion configureAccordion() {
         final Accordion accordion = new Accordion();
         accordion.getStyleClass().add("accordion-manual");
-        accordion.getPanes().addAll(panesManual);
+        accordion.getPanes().addAll(sectionsManual);
         accordion.expandedPaneProperty().addListener((observable, oldValue, newValue) -> {
-            final int index = panesManual.indexOf(newValue);
-            for (int i = 0; i < labelsMenu.size(); ++i)
-                labelsMenu.get(i).setId(i == index ? "label-menu-index-selected" : "");
+            final int index = sectionsManual.indexOf(newValue);
+            for (int i = 0; i < sectionsIndex.size(); ++i)
+                sectionsIndex.get(i).setId(i == index ? "label-menu-index-selected" : "");
         });
         accordion.setExpandedPane(accordion.getPanes().get(0));
         return accordion;
     }
 
-    private List<Label> configureLabelsMenu() {
+    private GridPane configurePaneBackground() {
+        GridPane.setHgrow(accordion, Priority.ALWAYS);
+        GridPane.setVgrow(accordion, Priority.ALWAYS);
+
+        final GridPane pane = new GridPane();
+        pane.getStyleClass().add("pane-background");
+        pane.add(configurePaneSectionsIndex(), 0, 0);
+        pane.add(new Separator(Orientation.VERTICAL), 1, 0);
+        pane.add(accordion, 2, 0);
+        return pane;
+    }
+
+    private VBox configurePaneSectionsIndex() {
+        final VBox box = new VBox();
+        box.getStyleClass().add("pane-menu-index");
+        box.getChildren().addAll(sectionsIndex);
+        return box;
+    }
+
+    private Scene configureScene() {
+        final Scene scene = new Scene(configureScrollRoot());
+        scene.getStylesheets().addAll("/gui/css/manualui/Accordion.css", "/gui/css/manualui/Label.css", "/gui/css/manualui/Pane.css", "/gui/css/manualui/Scroll.css", "/gui/css/share/Tooltip.css");
+        return scene;
+    }
+
+    private ScrollPane configureScrollRoot() {
+        final ScrollPane pane = new ScrollPane(configurePaneBackground());
+        pane.getStyleClass().add("scroll-root");
+        return pane;
+    }
+
+    private TitledPane configureSectionHowToUse() {
+        final Label label = new Label(LanguageManager.get("pane.how.to.use.content"));
+        label.getStyleClass().add("label-content-manual");
+
+        final StackPane pane = new StackPane(label);
+        pane.getStyleClass().addAll("pane-content-manual", "pane-content-manual-how-to-use");
+
+        final ScrollPane scroll = new ScrollPane(pane);
+        scroll.getStyleClass().add("scroll-content-manual");
+
+        final TitledPane titledPane = new TitledPane(LanguageManager.get("How.To.Use"), scroll);
+        titledPane.getStyleClass().add("pane-section-manual");
+        return titledPane;
+    }
+
+    private TitledPane configureSectionInformation() {
+        final Label label = new Label(LanguageManager.get("pane.information-content"));
+        label.getStyleClass().add("label-content-manual");
+
+        final StackPane pane = new StackPane(label);
+        pane.getStyleClass().addAll("pane-content-manual", "pane-content-manual-information");
+
+        final ScrollPane scroll = new ScrollPane(pane);
+        scroll.getStyleClass().add("scroll-content-manual");
+
+        final TitledPane titledPane = new TitledPane(LanguageManager.get("Information"), scroll);
+        titledPane.getStyleClass().add("pane-section-manual");
+        return titledPane;
+    }
+
+    private TitledPane configureSectionLanguage() {
+        final Label label = new Label(LanguageManager.get("pane.language.content"));
+        label.getStyleClass().add("label-content-manual");
+
+        final StackPane pane = new StackPane(label);
+        pane.getStyleClass().addAll("pane-content-manual", "pane-content-manual-extras.language");
+
+        final ScrollPane scroll = new ScrollPane(pane);
+        scroll.getStyleClass().add("scroll-content-manual");
+
+        final TitledPane titledPane = new TitledPane(LanguageManager.get("Language"), scroll);
+        titledPane.getStyleClass().add("pane-section-manual");
+        return titledPane;
+    }
+
+    private TitledPane configureSectionOperation() {
+        final Label label1 = new Label(LanguageManager.get("pane.operation.content.1"));
+        label1.getStyleClass().add("label-content-manual");
+
+        final Label label2 = new Label(LanguageManager.get("pane.operation.content.2"));
+        label2.getStyleClass().add("label-content-manual");
+
+        final Label label3 = new Label(LanguageManager.get("pane.operation.content.3"));
+        label3.getStyleClass().add("label-content-manual");
+
+        final Label label4 = new Label(LanguageManager.get("pane.operation.content.4"));
+        label4.getStyleClass().add("label-content-manual");
+
+        final VBox pane = new VBox(label1, label2, label3, label4);
+        pane.getStyleClass().addAll("pane-content-manual", "pane-content-manual-operation");
+
+        final ScrollPane scroll = new ScrollPane(pane);
+        scroll.getStyleClass().add("scroll-content-manual");
+
+        final TitledPane titledPane = new TitledPane(LanguageManager.get("Operation"), scroll);
+        titledPane.getStyleClass().add("pane-section-manual");
+        return titledPane;
+    }
+
+    private TitledPane configureSectionSupportedEncryptions() {
+        final Label label1 = new Label("MD5");
+        label1.getStyleClass().add("label-content-manual");
+
+        final Label label2 = new Label("SHA-1");
+        label2.getStyleClass().add("label-content-manual");
+
+        final Label label3 = new Label("SHA-224");
+        label3.getStyleClass().add("label-content-manual");
+
+        final Label label4 = new Label("SHA-256");
+        label4.getStyleClass().add("label-content-manual");
+
+        final Label label5 = new Label("SHA-384");
+        label5.getStyleClass().add("label-content-manual");
+
+        final Label label6 = new Label("SHA-512");
+        label6.getStyleClass().add("label-content-manual");
+
+        final GridPane pane = new GridPane();
+        pane.getStyleClass().addAll("pane-content-manual", "pane-content-manual-encryption");
+        pane.add(label1, 0, 0);
+        pane.add(label2, 1, 0);
+        pane.add(label3, 2, 0);
+        pane.add(label4, 0, 1);
+        pane.add(label5, 1, 1);
+        pane.add(label6, 2, 1);
+
+        final ScrollPane scroll = new ScrollPane(pane);
+        scroll.getStyleClass().add("scroll-content-manual");
+
+        final TitledPane titledPane = new TitledPane(LanguageManager.get("Supported.Encryptions"), scroll);
+        titledPane.getStyleClass().add("pane-section-manual");
+        return titledPane;
+    }
+
+    private List<Label> configureSectionsIndex() {
         final List<Label> list = new ArrayList<>();
         list.add(new Label(LanguageManager.get("Information")));
         list.add(new Label(LanguageManager.get("How.To.Use")));
@@ -74,182 +197,21 @@ public class ManualUI extends Application {
         return list;
     }
 
-    private GridPane configurePaneBackground() {
-        GridPane.setHgrow(accordion, Priority.ALWAYS);
-        GridPane.setVgrow(accordion, Priority.ALWAYS);
-
-        final GridPane pane = new GridPane();
-        pane.getStyleClass().add("pane-background");
-        pane.add(paneMenuIndex, 0, 0);
-        pane.add(separator, 1, 0);
-        pane.add(accordion, 2, 0);
-        return pane;
-    }
-
-    private List<TitledPane> configurePanesManual() {
+    private List<TitledPane> configureSectionsManual() {
         final List<TitledPane> list = new ArrayList<>();
-        list.add(createPaneInformation());
-        list.add(createPaneHowToUse());
-        list.add(createPaneOperation());
-        list.add(createPaneSupportedEncryptions());
-        list.add(createPaneLanguage());
+        list.add(configureSectionInformation());
+        list.add(configureSectionHowToUse());
+        list.add(configureSectionOperation());
+        list.add(configureSectionSupportedEncryptions());
+        list.add(configureSectionLanguage());
         return list;
     }
 
-    private VBox configurePaneMenuIndex() {
-        final VBox box = new VBox();
-        box.getStyleClass().add("pane-menu-index");
-        box.getChildren().addAll(labelsMenu);
-        return box;
-    }
-
-    private Scene configureScene() {
-        final Scene scene = new Scene(scrollRoot);
-        scene.getRoot().getStylesheets().clear();
-        scene.getRoot().getStylesheets().add("/gui/css/ManualUI.css");
-        return scene;
-    }
-
-    private ScrollPane configureScrollRoot() {
-        final ScrollPane pane = new ScrollPane(paneBackground);
-        pane.getStyleClass().add("scroll-root");
-        return pane;
-    }
-
-    private Stage configureStage() {
+    private void configureStage() {
         final Stage stage = new Stage();
         stage.setTitle(LanguageManager.get("Hash.Checker.Manual"));
         stage.setScene(configureScene());
         stage.show();
-        return stage;
-    }
-
-    private TitledPane createPaneHowToUse() {
-        final TitledPane paneHowToUse = new TitledPane();
-        paneHowToUse.setText(LanguageManager.get("How.To.Use"));
-
-        final StackPane paneContent = new StackPane();
-        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-how-to-use");
-
-        final ScrollPane scrollContent = new ScrollPane(paneContent);
-        scrollContent.getStyleClass().add("scroll-content-manual");
-
-        final Label label = new Label(LanguageManager.get("pane.how.to.use.content"));
-        label.getStyleClass().add("label-content-manual");
-
-        paneContent.getChildren().add(label);
-        paneHowToUse.setContent(scrollContent);
-
-        return paneHowToUse;
-    }
-
-    private TitledPane createPaneInformation() {
-        final TitledPane paneInformation = new TitledPane();
-        paneInformation.setText(LanguageManager.get("Information"));
-
-        final StackPane paneContent = new StackPane();
-        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-information");
-
-        final ScrollPane scrollContent = new ScrollPane(paneContent);
-        scrollContent.getStyleClass().add("scroll-content-manual");
-        scrollContent.setOnMouseClicked(event -> System.out.println(scrollContent.getWidth() + " x " + scrollContent.getHeight()));
-
-        final Label label = new Label(LanguageManager.get("pane.information-content"));
-        label.getStyleClass().add("label-content-manual");
-
-        paneContent.getChildren().add(label);
-        paneInformation.setContent(scrollContent);
-
-        return paneInformation;
-    }
-
-    private TitledPane createPaneLanguage() {
-        final TitledPane paneLanguage = new TitledPane();
-        paneLanguage.setText(LanguageManager.get("Language"));
-
-        final StackPane paneContent = new StackPane();
-        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-language");
-
-        final ScrollPane scrollContent = new ScrollPane(paneContent);
-        scrollContent.getStyleClass().add("scroll-content-manual");
-
-        final Label label = new Label(LanguageManager.get("pane.language.content"));
-        label.getStyleClass().add("label-content-manual");
-
-        paneContent.getChildren().add(label);
-        paneLanguage.setContent(scrollContent);
-
-        return paneLanguage;
-    }
-
-    private TitledPane createPaneOperation() {
-        final TitledPane paneOperation = new TitledPane();
-        paneOperation.setText(LanguageManager.get("Operation"));
-
-        final VBox paneContent = new VBox();
-        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-operation");
-
-        final ScrollPane scrollContent = new ScrollPane(paneContent);
-        scrollContent.getStyleClass().add("scroll-content-manual");
-
-        final Label[] labels = new Label[4];
-
-        labels[0] = new Label(LanguageManager.get("pane.operation.content.1"));
-        labels[0].getStyleClass().add("label-content-manual");
-
-        labels[1] = new Label(LanguageManager.get("pane.operation.content.2"));
-        labels[1].getStyleClass().add("label-content-manual");
-
-        labels[2] = new Label(LanguageManager.get("pane.operation.content.3"));
-        labels[2].getStyleClass().add("label-content-manual");
-
-        labels[3] = new Label(LanguageManager.get("pane.operation.content.4"));
-        labels[3].getStyleClass().add("label-content-manual");
-
-        paneContent.getChildren().addAll(labels);
-        paneOperation.setContent(scrollContent);
-
-        return paneOperation;
-    }
-
-    private TitledPane createPaneSupportedEncryptions() {
-        final TitledPane paneSupportedEncryptions = new TitledPane();
-        paneSupportedEncryptions.setText(LanguageManager.get("Supported.Encryptions"));
-
-        final GridPane paneContent = new GridPane();
-        paneContent.getStyleClass().addAll("pane-content-manual", "pane-content-manual-encryption");
-
-        final ScrollPane scrollContent = new ScrollPane(paneContent);
-        scrollContent.getStyleClass().add("scroll-content-manual");
-
-        final Label[] labels = new Label[6];
-
-        labels[0] = new Label("MD5");
-        labels[0].getStyleClass().add("label-content-manual");
-
-        labels[1] = new Label("SHA-1");
-        labels[1].getStyleClass().add("label-content-manual");
-
-        labels[2] = new Label("SHA-224");
-        labels[2].getStyleClass().add("label-content-manual");
-
-        labels[3] = new Label("SHA-256");
-        labels[3].getStyleClass().add("label-content-manual");
-
-        labels[4] = new Label("SHA-384");
-        labels[4].getStyleClass().add("label-content-manual");
-
-        labels[5] = new Label("SHA-512");
-        labels[5].getStyleClass().add("label-content-manual");
-
-        paneContent.add(labels[0], 0, 0);
-        paneContent.add(labels[1], 1, 0);
-        paneContent.add(labels[2], 2, 0);
-        paneContent.add(labels[3], 0, 1);
-        paneContent.add(labels[4], 1, 1);
-        paneContent.add(labels[5], 2, 1);
-
-        paneSupportedEncryptions.setContent(scrollContent);
-        return paneSupportedEncryptions;
+//        return stage;
     }
 }

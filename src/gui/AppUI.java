@@ -1,5 +1,6 @@
 package gui;
 
+import core.AppBIO;
 import core.AppController;
 import core.FileOpener;
 import extras.language.Language;
@@ -130,7 +131,7 @@ public class AppUI extends Application {
 
     private MenuItem configureMenuItemAbout() {
         final MenuItem item = new MenuItem();
-        item.setOnAction(event -> new AboutUI());
+        item.setOnAction(event -> new AboutUI(stage));
         return item;
     }
 
@@ -231,7 +232,7 @@ public class AppUI extends Application {
     }
 
     private void updateLanguage() {
-        stage.setTitle(LanguageManager.get("Hash.Checker") + " v3.1");
+        stage.setTitle(LanguageManager.get("Hash.Checker") + " v" + AppBIO.VERSION);
 
         menuSettings.setText(LanguageManager.get("Settings"));
         menuLanguage.setText(LanguageManager.get("Language"));

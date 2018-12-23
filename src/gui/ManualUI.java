@@ -65,15 +65,13 @@ public class ManualUI extends Application {
     }
 
     private Scene configureScene() {
-        final Scene scene = new Scene(configureScrollRoot());
-        scene.getStylesheets().addAll("/gui/css/manualui/Accordion.css", "/gui/css/manualui/Label.css", "/gui/css/manualui/Pane.css", "/gui/css/manualui/Scroll.css", "/gui/css/share/Tooltip.css");
+        final Scene scene = new Scene(configurePaneBackground());
+        scene.getStylesheets().addAll("/gui/css/manualui/Accordion.css",
+                "/gui/css/manualui/Label.css",
+                "/gui/css/manualui/Pane.css",
+                "/gui/css/manualui/Scroll.css",
+                "/gui/css/share/Tooltip.css");
         return scene;
-    }
-
-    private ScrollPane configureScrollRoot() {
-        final ScrollPane pane = new ScrollPane(configurePaneBackground());
-        pane.getStyleClass().add("scroll-root");
-        return pane;
     }
 
     private TitledPane configureSectionHowToUse() {
@@ -209,9 +207,11 @@ public class ManualUI extends Application {
 
     private void configureStage() {
         final Stage stage = new Stage();
+        stage.setMinWidth(781);
+        stage.setMinHeight(368);
+
         stage.setTitle(LanguageManager.get("Hash.Checker.Manual"));
         stage.setScene(configureScene());
         stage.show();
-//        return stage;
     }
 }

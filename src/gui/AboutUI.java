@@ -1,5 +1,6 @@
 package gui;
 
+import core.AppBIO;
 import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -8,6 +9,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -16,7 +18,10 @@ import java.util.Map;
 public class AboutUI extends Application {
     private Map<String, Label> labels;
 
-    public AboutUI() {
+    private Stage parent;
+
+    public AboutUI(Stage parent) {
+        this.parent = parent;
         labels = configureLabels();
         configureStage();
     }
@@ -41,7 +46,7 @@ public class AboutUI extends Application {
 
         list.put("c-developer", configureLabel("Adriano Siqueira", "label-content"));
         list.put("c-title", configureLabel(LanguageManager.get("Hash.Checker"), "label-content"));
-        list.put("c-version", configureLabel("3.2", "label-content"));
+        list.put("c-version", configureLabel(AppBIO.VERSION, "label-content"));
         return list;
     }
 
@@ -81,6 +86,10 @@ public class AboutUI extends Application {
         stage.setTitle(LanguageManager.get("About.Hash.Checker"));
         stage.setResizable(false);
         stage.setScene(configureScene());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(parent);
         stage.show();
+
+        labels.get("s-developer").setOnMouseClicked(event -> System.out.println(stage.getWidth() + " X " + stage.getHeight()));
     }
 }

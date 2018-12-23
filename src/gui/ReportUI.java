@@ -98,7 +98,6 @@ public class ReportUI extends Application {
 
         Label label = new Label(new DecimalFormat("#.##").format((double) (map.get("percentil")) * 100) + " %");
         label.getStyleClass().add("label-integrity");
-        label.setId((String) map.get("id"));
 
         ProgressBar bar = new ProgressBar((Double) map.get("percentil"));
         bar.getStyleClass().add("bar-integrity");
@@ -117,7 +116,7 @@ public class ReportUI extends Application {
     }
 
     private Scene configureScene() {
-        final Scene scene = new Scene(configureScrollRoot());
+        final Scene scene = new Scene(configurePaneRoot());
         scene.getStylesheets().addAll("/gui/css/reportui/Column.css",
                 "/gui/css/reportui/Label.css",
                 "/gui/css/reportui/Pane.css",
@@ -125,12 +124,6 @@ public class ReportUI extends Application {
                 "/gui/css/reportui/Scroll.css",
                 "/gui/css/reportui/Table.css");
         return scene;
-    }
-
-    private ScrollPane configureScrollRoot() {
-        final ScrollPane scroll = new ScrollPane(configurePaneRoot());
-        scroll.getStyleClass().add("scroll-root");
-        return scroll;
     }
 
     private Stage configureStage() {

@@ -32,6 +32,14 @@
     <li>If the official file is not a valid text file, the program will be behave unpredictably.</li>
 </ol>
 
+<h5>Change log v3.2:</h5>
+<ul>
+    <li>Added color style to table report.</li>
+    <li>Added an integrity bar to show the status.</li>
+    <li>Added tooltips in components.</li>
+    <li>Project files reorganization.</li>
+</ul>
+
 <h5>Change log v3.1:</h5>
 <ul>
     <li>Added about and manual.</li>

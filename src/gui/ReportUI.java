@@ -1,7 +1,7 @@
 package gui;
 
-import core.Algorithm;
-import core.Report;
+import core.model.Algorithm;
+import core.model.Report;
 import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.collections.FXCollections;

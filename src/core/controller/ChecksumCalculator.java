@@ -1,4 +1,6 @@
-package core;
+package core.controller;
+
+import core.model.Algorithm;
 
 import java.io.File;
 import java.io.FileInputStream;

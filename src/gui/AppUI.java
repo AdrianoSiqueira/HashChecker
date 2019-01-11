@@ -1,8 +1,8 @@
 package gui;
 
-import core.AppBIO;
-import core.AppController;
-import core.FileOpener;
+import core.controller.AppBIO;
+import core.controller.AppController;
+import core.controller.FileOpener;
 import extras.language.Language;
 import extras.language.LanguageManager;
 import javafx.application.Application;

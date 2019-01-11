@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 /**
  * <p> Data model for {@link gui.ReportUI}'s table. </p>

@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 public enum Algorithm {
     MD5("MD5", 32),

@@ -1,6 +1,6 @@
 package gui;
 
-import core.AppBIO;
+import core.controller.AppBIO;
 import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;

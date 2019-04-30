@@ -1,9 +1,9 @@
 package core.controller;
 
+import extras.language.LanguageManager;
 import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import extras.language.LanguageManager;
 
 import java.io.File;
 

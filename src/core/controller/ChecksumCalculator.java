@@ -6,7 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ChecksumCalculator {
     private final File fileToCheck;

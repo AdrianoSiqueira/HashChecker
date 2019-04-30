@@ -1,0 +1,17 @@
+@font-face {
+    src: url("/extras/font/Roboto-Regular.ttf");
+}
+
+@font-face {
+    src: url("/extras/font/Roboto-Bold.ttf");
+}
+
+.label-content {
+    -fx-font: normal normal 16px "Roboto";
+}
+
+.label-subject {
+    -fx-font: bold normal 16px "Roboto";
+    -fx-alignment: center-right;
+    -fx-max-width: infinity;
+}

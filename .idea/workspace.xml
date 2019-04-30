@@ -7,8 +7,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="986acb94-8b7a-4a5d-ae1c-3a79ba96e2cb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/build/HashChecker.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/HashChecker.jar" afterDir="false" />
+    <list default="true" id="986acb94-8b7a-4a5d-ae1c-3a79ba96e2cb" name="Default Changelist" comment=".">
+      <change afterPath="$PROJECT_DIR$/HashChecker.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/AppUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AppUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ManualUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ManualUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ReportUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ReportUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,7 +22,47 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/gui/AppUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1230">
+              <caret line="282" column="3" lean-forward="true" selection-start-line="282" selection-start-column="3" selection-end-line="282" selection-end-column="3" />
+              <folding>
+                <element signature="method#AppUI#0;class#AppUI#0" />
+                <element signature="method#configureButtonOpenFileToCheck#0;class#AppUI#0" />
+                <element signature="e#2508#2726#0" />
+                <element signature="method#configureButtonOpenHashFile#0;class#AppUI#0" />
+                <element signature="e#2974#3186#0" />
+                <element signature="method#configureFieldFileToCheck#0;class#AppUI#0" />
+                <element signature="method#configureFieldHashFile#0;class#AppUI#0" />
+                <element signature="method#configureLabel#0;class#AppUI#0" />
+                <element signature="method#configureMenuHelp#0;class#AppUI#0" />
+                <element signature="method#configureMenuItemAbout#0;class#AppUI#0" />
+                <element signature="method#configureMenuItemManual#0;class#AppUI#0" />
+                <element signature="method#configureMenuLanguage#0;class#AppUI#0" />
+                <element signature="method#configureMenuSettings#0;class#AppUI#0" />
+                <element signature="method#configurePaneBackground#0;class#AppUI#0" />
+                <element signature="e#5312#5361#0" />
+                <element signature="method#configurePaneRoot#0;class#AppUI#0" />
+                <element signature="method#configureScene#0;class#AppUI#0" />
+                <element signature="method#configureScrollBackground#0;class#AppUI#0" />
+                <element signature="method#configureSpinnerLanguage#0;class#AppUI#0" />
+                <element signature="e#6979#7119#0" />
+                <element signature="method#configureStage#0;class#AppUI#0" />
+                <element signature="e#7272#7298#0" />
+                <element signature="method#run#0;class#AppUI#0" />
+                <element signature="e#7527#8072#0" />
+                <element signature="e#7569#8062#1" />
+                <element signature="e#7791#8046#0" />
+                <element signature="e#7864#8028#1" />
+                <element signature="method#updateLanguage#0;class#AppUI#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,6 +99,17 @@
               <item name="HashChecker" type="b2602c69:ProjectViewProjectNode" />
               <item name="HashChecker" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="HashChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HashChecker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HashChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HashChecker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="gui" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -83,13 +138,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1366" height="728" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" />
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24944155" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" visible="true" weight="0.3294702" />
+      <window_info anchor="bottom" id="Version Control" weight="0.3294702" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Messages" weight="0.3294702" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -105,6 +161,16 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Added IDE configuration files." />
+    <MESSAGE value="New build version." />
+    <MESSAGE value="New directory to store manifest files." />
+    <MESSAGE value="Added output files." />
+    <MESSAGE value="Improvements in imports." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvements in imports." />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/gui/ReportUI.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -113,6 +179,67 @@
           <folding>
             <element signature="e#5290#5599#0" expanded="true" />
             <element signature="e#5598#5599#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/extras/language/LanguageManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/controller/FileOpener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/controller/ChecksumCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="20" column="37" lean-forward="true" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/AppUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="282" column="3" lean-forward="true" selection-start-line="282" selection-start-column="3" selection-end-line="282" selection-end-column="3" />
+          <folding>
+            <element signature="method#AppUI#0;class#AppUI#0" />
+            <element signature="method#configureButtonOpenFileToCheck#0;class#AppUI#0" />
+            <element signature="e#2508#2726#0" />
+            <element signature="method#configureButtonOpenHashFile#0;class#AppUI#0" />
+            <element signature="e#2974#3186#0" />
+            <element signature="method#configureFieldFileToCheck#0;class#AppUI#0" />
+            <element signature="method#configureFieldHashFile#0;class#AppUI#0" />
+            <element signature="method#configureLabel#0;class#AppUI#0" />
+            <element signature="method#configureMenuHelp#0;class#AppUI#0" />
+            <element signature="method#configureMenuItemAbout#0;class#AppUI#0" />
+            <element signature="method#configureMenuItemManual#0;class#AppUI#0" />
+            <element signature="method#configureMenuLanguage#0;class#AppUI#0" />
+            <element signature="method#configureMenuSettings#0;class#AppUI#0" />
+            <element signature="method#configurePaneBackground#0;class#AppUI#0" />
+            <element signature="e#5312#5361#0" />
+            <element signature="method#configurePaneRoot#0;class#AppUI#0" />
+            <element signature="method#configureScene#0;class#AppUI#0" />
+            <element signature="method#configureScrollBackground#0;class#AppUI#0" />
+            <element signature="method#configureSpinnerLanguage#0;class#AppUI#0" />
+            <element signature="e#6979#7119#0" />
+            <element signature="method#configureStage#0;class#AppUI#0" />
+            <element signature="e#7272#7298#0" />
+            <element signature="method#run#0;class#AppUI#0" />
+            <element signature="e#7527#8072#0" />
+            <element signature="e#7569#8062#1" />
+            <element signature="e#7791#8046#0" />
+            <element signature="e#7864#8028#1" />
+            <element signature="method#updateLanguage#0;class#AppUI#0" />
           </folding>
         </state>
       </provider>

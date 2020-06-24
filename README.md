@@ -10,7 +10,7 @@
 
 <h5>Requirements</h5>
 <ul>
-    <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html">Oracle Java 10.0.2</a> or newer</li>
+    <li><a href="https://www.oracle.com/java/technologies/javase-jre8-downloads.html">Oracle Java 8</a></li>
 </ul>
 
 <h5>Supported Encryptions</h5>
@@ -31,6 +31,11 @@
 <ol>
     <li>If the official file is not a valid text file, the program will be behave unpredictably.</li>
 </ol>
+
+<h5>Change log v3.3:</h5>
+<ul>
+    <li>Code ported to run with Java 8.</li>
+</ul>
 
 <h5>Change log v3.2:</h5>
 <ul>

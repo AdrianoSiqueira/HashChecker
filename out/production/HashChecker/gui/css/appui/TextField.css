@@ -1,7 +1,0 @@
-@font-face {
-    src: url("/extras/font/Roboto-Regular.ttf");
-}
-
-.field-file {
-    -fx-font: normal normal 16px "Roboto";
-}

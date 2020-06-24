@@ -1,9 +1,0 @@
-.scroll-content-manual {
-    -fx-fit-to-width: true;
-    -fx-fit-to-height: false;
-}
-
-.scroll-root {
-    -fx-fit-to-width: true;
-    -fx-fit-to-height: true;
-}

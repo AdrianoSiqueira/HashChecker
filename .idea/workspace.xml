@@ -34,9 +34,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="86498d21-d456-4013-9c6e-70256827fe7b" />
-  </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
       <list>
@@ -93,5 +90,13 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="166" y="0" width="1024" height="723" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1593002596420" />
+    <state x="278" y="99" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1593002994250">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="278" y="99" width="800" height="523" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1593002994250" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1593003027795">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1593003027795" />
   </component>
 </project>

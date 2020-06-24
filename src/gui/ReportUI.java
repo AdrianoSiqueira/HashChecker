@@ -148,7 +148,7 @@ public class ReportUI extends Application {
     private TableView<Report> configureTableReport() {
         final TableView<Report> table = new TableView<>(fillTable());
         table.getStyleClass().add("table-report");
-        table.setRowFactory(param -> new TableRow<>() {
+        table.setRowFactory(param -> new TableRow<Report>() {
             protected void updateItem(Report item, boolean empty) {
                 if (!empty && item != null) {
                     if (item.getStatus().equals(LanguageManager.get("Risk"))) setId("risk");

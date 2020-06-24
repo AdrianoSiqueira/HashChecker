@@ -6,6 +6,24 @@
       <artifact name="HashCheckerTest" />
     </artifacts-to-build>
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="986acb94-8b7a-4a5d-ae1c-3a79ba96e2cb" name="Default Changelist" comment="." />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,10 +61,21 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/build" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -56,12 +85,13 @@
     <MESSAGE value="New directory to store manifest files." />
     <MESSAGE value="Added output files." />
     <MESSAGE value="Improvements in imports." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvements in imports." />
+    <MESSAGE value="Port code to Java 8." />
+    <option name="LAST_COMMIT_MESSAGE" value="Port code to Java 8." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="166" y="0" width="1024" height="723" key="SettingsEditor" timestamp="1593002437976">
+    <state x="166" y="0" width="1024" height="723" key="SettingsEditor" timestamp="1593002596420">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="166" y="0" width="1024" height="723" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1593002437976" />
+    <state x="166" y="0" width="1024" height="723" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1593002596420" />
   </component>
 </project>

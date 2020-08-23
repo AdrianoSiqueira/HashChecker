@@ -32,6 +32,12 @@
     <li>If the official file is not a valid text file, the program will be behave unpredictably.</li>
 </ol>
 
+<h5>Change log v3.3.1:</h5>
+<ul>
+    <li>Fix files encoding.</li>
+    <li>Fix initial spinner language selection.</li>
+</ul>
+
 <h5>Change log v3.3:</h5>
 <ul>
     <li>Code ported to run with Java 8.</li>

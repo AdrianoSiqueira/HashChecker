@@ -27,6 +27,7 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Locale;
 
 public class AppUI extends Application {
     private AppController controller;
@@ -204,12 +205,17 @@ public class AppUI extends Application {
     }
 
     private Spinner<String> configureSpinnerLanguage() {
+        final Locale locale = Locale.getDefault();
+        final Language language = Language.getByLanguage(locale.getLanguage());
+
         final Spinner<String> spinner = new Spinner<>(FXCollections.observableList(Language.allNames()));
+        spinner.getValueFactory().setValue(language.getName());
         spinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
         spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
             LanguageManager.set(Language.getByName(newValue));
             updateLanguage();
         });
+
         return spinner;
     }
 

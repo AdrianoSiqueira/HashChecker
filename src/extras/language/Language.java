@@ -35,6 +35,13 @@ public enum Language {
         return ENGLISH;
     }
 
+    public static Language getByLanguage(final String language) {
+        for (Language value : values())
+            if (value.language.equals(language))
+                return value;
+        return ENGLISH;
+    }
+
     public String getName() {
         return name;
     }
